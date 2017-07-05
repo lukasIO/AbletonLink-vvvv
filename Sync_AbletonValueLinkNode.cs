@@ -44,8 +44,6 @@ namespace VVVV.Nodes
         [Output("Peers")]
         public ISpread<int> FPeersOut;
 
-        [Output("Running")]
-        public ISpread<bool> FEnabledOut;
 
         [Import()]
         public ILogger FLogger;
@@ -59,8 +57,7 @@ namespace VVVV.Nodes
                  
         }
 
-
-        //called when data for any output pin is requested
+        
         public void Evaluate(int SpreadMax)
         {
             if (FResetIn[0])
@@ -72,18 +69,25 @@ namespace VVVV.Nodes
                 isEnabled = FEnabledIn[0];
             }
 
-            if (FSetTempoIn[0])
-                AbletonLink.Instance.setTempo(FbpmIn[0]);
+            if (isEnabled)
+            {
+                if (FSetTempoIn[0])
+                    AbletonLink.Instance.setTempo(FbpmIn[0]);
 
-            double beat;
-            double phase;
-            AbletonLink.Instance.update(out beat, out phase);
+                double beat;
+                double phase;
+                AbletonLink.Instance.update(out beat, out phase);
+
+                FBeatOut[0] = beat;
+                FPhaseOut[0] = phase;
+                
+                FPeersOut[0] = AbletonLink.Instance.numPeers();
+                FbpmOut[0] = AbletonLink.Instance.tempo();
+            }
+
             
-            FBeatOut[0] = beat;
-            FPhaseOut[0] = phase;
-            FEnabledOut[0] = AbletonLink.Instance.isEnabled();
-            FPeersOut[0] = AbletonLink.Instance.numPeers();
-            FbpmOut[0] = AbletonLink.Instance.tempo();
+
+
 
 
         }
@@ -92,7 +96,7 @@ namespace VVVV.Nodes
     public class AbletonLink : IDisposable
     {
   
-    private static object lockOjbect = new object();
+    
 	private static volatile AbletonLink singletonInstance;
 	private IntPtr nativeInstance = IntPtr.Zero;
 	private const double INITIAL_TEMPO = 120.0;
@@ -103,11 +107,10 @@ namespace VVVV.Nodes
 		{
 			if (singletonInstance == null)
 			{
-				lock (lockOjbect)
-				{
-					    singletonInstance = new AbletonLink();               
-					    singletonInstance.setup(INITIAL_TEMPO);
-				}
+				
+				singletonInstance = new AbletonLink();               
+				singletonInstance.setup(INITIAL_TEMPO);
+				
 			}
 			return singletonInstance;
 		}
