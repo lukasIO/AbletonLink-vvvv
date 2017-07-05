@@ -116,7 +116,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;ABLETONLINKDLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\VVVV\extlib\plugins\Sync_AdobeValueLink\AbletonLinkDLL\link\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\local\boost_1_63_0;C:\VVVV\extlib\plugins\Sync_AdobeValueLink\AbletonLinkDLL\link\modules\asio-standalone\asio\include;C:\VVVV\extlib\plugins\Sync_AdobeValueLink\AbletonLinkDLL\link\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -133,6 +133,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;ABLETONLINKDLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\local\boost_1_63_0;C:\VVVV\extlib\plugins\Sync_AdobeValueLink\AbletonLinkDLL\link\modules\asio-standalone\asio\include;C:\VVVV\extlib\plugins\Sync_AdobeValueLink\AbletonLinkDLL\link\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

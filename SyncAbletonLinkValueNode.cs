@@ -15,9 +15,9 @@ using VVVV.Core.Logging;
 namespace VVVV.Nodes
 {
     #region PluginInfo
-    [PluginInfo(Name = "Link", Category = "Value", Version = "Ableton", Help = "Sync Timelines using Ableton Link", Tags = "Sync", Author = "soriak")]
+    [PluginInfo(Name = "Ableton Link", Category = "Value", Version = "", Help = "Sync Timelines using Ableton Link", Tags = "Sync", Author = "soriak")]
     #endregion PluginInfo
-    public class Sync_AbletonValueLinkNode : IPluginEvaluate, IDisposable
+    public class SyncAbletonLinkValueNode : IPluginEvaluate, IDisposable
     {
         #region fields & pins
         [Input("BPM In", DefaultValue = 120)]
@@ -26,7 +26,7 @@ namespace VVVV.Nodes
         [Input("Set Tempo", IsBang = true)]
         public IDiffSpread<bool> FSetTempoIn;
 
-        [Input("Reset")]
+        [Input("Reset", IsBang = true)]
         public IDiffSpread<bool> FResetIn;
 
         [Input("Enabled")]
@@ -62,6 +62,7 @@ namespace VVVV.Nodes
         {
             if (FResetIn[0])
                 this.Dispose();
+
 
             if (isEnabled != FEnabledIn[0])
             {
