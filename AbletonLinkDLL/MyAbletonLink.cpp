@@ -51,10 +51,11 @@ void MyAbletonLink::setTempo(double bpm){
     if (link == nullptr){
         return;
     }
-    auto timeline = link->captureAppTimeline();
+    auto state = link->captureAppSessionState();
+	
     const auto time = link->clock().micros();
-    timeline.setTempo(bpm, time);
-    link->commitAppTimeline(timeline);
+	state.setTempo(bpm, time);
+    link->commitAppSessionState(state);
     
 }
 
@@ -62,7 +63,7 @@ double MyAbletonLink::tempo(){
     if(link == nullptr){
         return 0.0;
     }
-    return link->captureAppTimeline().tempo();
+    return link->captureAppSessionState().tempo();
 }
 
 void MyAbletonLink::setQuantum(double quantum){
@@ -85,7 +86,47 @@ void MyAbletonLink::enable(bool bEnable){
         return;
     }
     link->enable(bEnable);
+
 }
+
+
+
+void MyAbletonLink::enableStartStopSync(bool bEnable) {
+	if (link == nullptr) {
+		return;
+	}
+	link->enableStartStopSync(bEnable);
+
+}
+
+void MyAbletonLink::startPlaying() {
+	if (link == nullptr) {
+		return;
+	}
+	auto state = link->captureAppSessionState();
+
+	state.setIsPlaying(true, link->clock().micros());
+	link->commitAppSessionState(state);
+
+}
+
+void MyAbletonLink::stopPlaying() {
+	if (link == nullptr) {
+		return;
+	}
+	auto state = link->captureAppSessionState();
+
+	state.setIsPlaying(false, link->clock().micros());
+	link->commitAppSessionState(state);
+
+}
+
+bool MyAbletonLink::isPlaying()
+{
+	return link->captureAppSessionState().isPlaying();
+}
+
+
 
 std::size_t MyAbletonLink::numPeers(){
     if(link == nullptr){
@@ -100,7 +141,7 @@ MyAbletonLink::Status MyAbletonLink::update(){
         return status;
     }
     const auto time = link->clock().micros();
-    auto timeline = link->captureAppTimeline();
+    auto timeline = link->captureAppSessionState();
     status.beat  = timeline.beatAtTime(time, quantum_);
     status.phase = timeline.phaseAtTime(time, quantum_);
     return status;

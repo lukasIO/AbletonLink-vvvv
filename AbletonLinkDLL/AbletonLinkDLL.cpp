@@ -61,6 +61,31 @@ extern "C" {
 			link->enable(bEnable);
 		}
 
+
+		void startPlaying(void* ptr)
+		{
+			MyAbletonLink* link = static_cast<MyAbletonLink*>(ptr);
+			link->startPlaying();
+		}
+
+		void stopPlaying(void* ptr)
+		{
+			MyAbletonLink* link = static_cast<MyAbletonLink*>(ptr);
+			link->stopPlaying();
+		}
+
+		bool isPlaying(void* ptr)
+		{
+			MyAbletonLink* link = static_cast<MyAbletonLink*>(ptr);
+			return link->isPlaying();
+		}
+
+		void enableStartStopSync(void* ptr, bool bEnable)
+		{
+			MyAbletonLink* link = static_cast<MyAbletonLink*>(ptr);
+			link->enableStartStopSync(bEnable);
+		}
+
 		int numPeers(void* ptr)
 		{
 			MyAbletonLink* link = static_cast<MyAbletonLink*>(ptr);

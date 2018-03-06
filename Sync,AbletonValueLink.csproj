@@ -58,7 +58,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SlimDX" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition.CodePlex, Version=4.1.2.0, Culture=neutral, PublicKeyToken=13e5ffd4e05db186, processorArchitecture=MSIL">
       <HintPath>packages\VVVV.System.ComponentModel.Composition.Codeplex.2.5.0\lib\net40\System.ComponentModel.Composition.CodePlex.dll</HintPath>
@@ -67,12 +66,12 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="VVVV.Core, Version=35.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\VVVV.Core.35.8.0-develop-2695\lib\net46\VVVV.Core.dll</HintPath>
+      <HintPath>packages\VVVV.Core.35.8.0\lib\net46\VVVV.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VVVV.PluginInterfaces" />
     <Reference Include="VVVV.Utils, Version=35.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\VVVV.Utils.35.8.0-develop-2695\lib\net46\VVVV.Utils.dll</HintPath>
+      <HintPath>packages\VVVV.Utils.35.8.0\lib\net46\VVVV.Utils.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VVVV.Utils3rdParty" />
@@ -82,7 +81,15 @@
     <Compile Include="SyncAbletonLinkValueNode.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="AbletonLinkDLL\AbletonLinkDLL.vcxproj">
+      <Project>{7ae17c11-1b9a-4773-89b7-48637db8d55f}</Project>
+      <Name>AbletonLinkDLL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -91,10 +98,10 @@
     </PropertyGroup>
     <Error Condition="!Exists('packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.props'))" />
     <Error Condition="!Exists('packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.targets'))" />
-    <Error Condition="!Exists('packages\VVVV.Utils3rdParty.35.8.0-develop-2695\build\net46\VVVV.Utils3rdParty.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\VVVV.Utils3rdParty.35.8.0-develop-2695\build\net46\VVVV.Utils3rdParty.targets'))" />
-    <Error Condition="!Exists('packages\VVVV.PluginInterfaces.35.8.0-develop-2695\build\net46\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\VVVV.PluginInterfaces.35.8.0-develop-2695\build\net46\VVVV.PluginInterfaces.targets'))" />
+    <Error Condition="!Exists('packages\VVVV.Utils3rdParty.35.8.0\build\net46\VVVV.Utils3rdParty.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\VVVV.Utils3rdParty.35.8.0\build\net46\VVVV.Utils3rdParty.targets'))" />
+    <Error Condition="!Exists('packages\VVVV.PluginInterfaces.35.8.0\build\net46\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\VVVV.PluginInterfaces.35.8.0\build\net46\VVVV.PluginInterfaces.targets'))" />
   </Target>
   <Import Project="packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.targets" Condition="Exists('packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.targets')" />
-  <Import Project="packages\VVVV.Utils3rdParty.35.8.0-develop-2695\build\net46\VVVV.Utils3rdParty.targets" Condition="Exists('packages\VVVV.Utils3rdParty.35.8.0-develop-2695\build\net46\VVVV.Utils3rdParty.targets')" />
-  <Import Project="packages\VVVV.PluginInterfaces.35.8.0-develop-2695\build\net46\VVVV.PluginInterfaces.targets" Condition="Exists('packages\VVVV.PluginInterfaces.35.8.0-develop-2695\build\net46\VVVV.PluginInterfaces.targets')" />
+  <Import Project="packages\VVVV.Utils3rdParty.35.8.0\build\net46\VVVV.Utils3rdParty.targets" Condition="Exists('packages\VVVV.Utils3rdParty.35.8.0\build\net46\VVVV.Utils3rdParty.targets')" />
+  <Import Project="packages\VVVV.PluginInterfaces.35.8.0\build\net46\VVVV.PluginInterfaces.targets" Condition="Exists('packages\VVVV.PluginInterfaces.35.8.0\build\net46\VVVV.PluginInterfaces.targets')" />
 </Project>

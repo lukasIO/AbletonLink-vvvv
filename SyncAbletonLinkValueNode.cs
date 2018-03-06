@@ -26,6 +26,15 @@ namespace VVVV.Nodes
         [Input("Set Tempo", IsBang = true)]
         public IDiffSpread<bool> FSetTempoIn;
 
+        [Input("Start Playing", IsBang = true)]
+        public IDiffSpread<bool> FStartPlay;
+
+        [Input("Stop Playing", IsBang = true)]
+        public IDiffSpread<bool> FStopPlay;
+
+        [Input("StartStopSync")]
+        public IDiffSpread<bool> FEnableStartStopSync;
+
         [Input("Reset", IsBang = true)]
         public IDiffSpread<bool> FResetIn;
 
@@ -43,6 +52,9 @@ namespace VVVV.Nodes
 
         [Output("Peers")]
         public ISpread<int> FPeersOut;
+
+        [Output("IsPlaying")]
+        public ISpread<bool> FIsPlayingOut;
 
 
         [Import()]
@@ -75,6 +87,19 @@ namespace VVVV.Nodes
                 if (FSetTempoIn[0])
                     AbletonLink.Instance.setTempo(FbpmIn[0]);
 
+                if (FEnableStartStopSync.IsChanged)
+                {
+                    AbletonLink.Instance.enableStartStopSync(FEnableStartStopSync[0]);
+                }
+
+                if(FEnableStartStopSync[0])
+                {
+                    if (FStartPlay[0])
+                        AbletonLink.Instance.startPlaying();
+                    if (FStopPlay[0])
+                        AbletonLink.Instance.stopPlaying();
+                }
+
                 double beat;
                 double phase;
                 AbletonLink.Instance.update(out beat, out phase);
@@ -84,6 +109,7 @@ namespace VVVV.Nodes
                 
                 FPeersOut[0] = AbletonLink.Instance.numPeers();
                 FbpmOut[0] = AbletonLink.Instance.tempo();
+                FIsPlayingOut[0] = AbletonLink.Instance.isPlaying();
             }
 
             
@@ -192,7 +218,35 @@ namespace VVVV.Nodes
 		enable(nativeInstance, bEnable);
 	}
 
-	[DllImport ("AbletonLinkDLL")]
+    [DllImport("AbletonLinkDLL")]
+    private static extern void enableStartStopSync(IntPtr ptr, bool bEnable);
+    public void enableStartStopSync(bool bEnable)
+    {
+        enableStartStopSync(nativeInstance, bEnable);
+    }
+
+        [DllImport("AbletonLinkDLL")]
+        private static extern void startPlaying(IntPtr ptr);
+        public void startPlaying()
+        {
+            startPlaying(nativeInstance);
+        }
+
+        [DllImport("AbletonLinkDLL")]
+        private static extern void stopPlaying(IntPtr ptr);
+        public void stopPlaying()
+        {
+            stopPlaying(nativeInstance);
+        }
+
+        [DllImport("AbletonLinkDLL")]
+        private static extern bool isPlaying(IntPtr ptr);
+        public bool isPlaying()
+        {
+            return isPlaying(nativeInstance);
+        }
+
+        [DllImport ("AbletonLinkDLL")]
 	private static extern int numPeers(IntPtr ptr);
 	public int numPeers()
 	{

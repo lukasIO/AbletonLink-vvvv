@@ -68,6 +68,10 @@ public:
     
     bool isEnabled() const;
     void enable(bool bEnable);
+	void startPlaying();
+	void stopPlaying();
+	bool isPlaying();
+	void enableStartStopSync(bool bEnable);
     
     std::size_t numPeers();
     

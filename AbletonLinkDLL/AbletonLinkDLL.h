@@ -13,9 +13,6 @@
 
 
 
-
-
-
 extern "C" {
 
 
@@ -33,6 +30,11 @@ extern "C" {
 
 			bool ABLETONLINKDLL_API isEnabled(void* ptr);
 			void ABLETONLINKDLL_API enable(void* ptr, bool bEnable);
+
+			void ABLETONLINKDLL_API startPlaying(void* ptr);
+			void ABLETONLINKDLL_API stopPlaying(void* ptr);
+			bool ABLETONLINKDLL_API isPlaying(void* ptr);
+			void ABLETONLINKDLL_API enableStartStopSync(void* ptr, bool bEnable);
 
 			int ABLETONLINKDLL_API numPeers(void* ptr);
 			void ABLETONLINKDLL_API update(void* ptr, double* rbeat, double* rphase);
